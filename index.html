@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animação com Texto</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #000; /* Fundo da página preto para simular um monitor */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Courier New', Courier, monospace; /* Fonte monoespaçada para simular um terminal */
+        }
+
+        .monitor {
+            position: relative;
+            width: 90vw; /* Ajuste a largura para se adaptar a dispositivos móveis */
+            height: 70vh; /* Ajuste a altura para se adaptar a dispositivos móveis */
+            max-width: 800px; /* Largura máxima para grandes telas */
+            max-height: 600px; /* Altura máxima para grandes telas */
+            background-color: #222; /* Cor do monitor */
+            border: 10px solid #333; /* Borda do monitor */
+            border-radius: 15px; /* Bordas arredondadas */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra para simular profundidade */
+        }
+
+        .tela {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: calc(100% - 40px);
+            height: calc(100% - 40px);
+            background-color: #000; /* Fundo da tela */
+            border: 5px solid #0f0; /* Borda verde da tela */
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #0f0; /* Cor do texto verde */
+        }
+
+        .texto {
+            width: 90%;
+            font-size: 2vw; /* Ajuste o tamanho da fonte para ser menor e caber melhor */
+            white-space: pre-wrap;
+            overflow: hidden;
+            text-align: center;
+            line-height: 1.4; /* Aumenta o espaçamento entre linhas para melhor legibilidade */
+            opacity: 1;
+        }
+
+        @keyframes piscar {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1em;
+            background-color: #0f0;
+            animation: piscar 0.8s step-end infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="monitor">
+        <div class="tela">
+            <div class="texto" id="texto">
+                <span id="cursor" class="cursor"></span>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.onload = () => {
+            const textoElement = document.getElementById('texto');
+            const cursor = document.getElementById('cursor');
+            const textoOriginal = "Coisas que eu provavelmente não iria dizer";
+            const textoNovo = "Ei... deixa eu te falar uma coisa, eu to com uma saudade do teu abraço, me dá uma sensação de conforto muito grande te ter perto assim, será que se eu fizer cara de dó eu ganho mais alguns? :3";
+
+            function apagarTexto() {
+                let index = textoElement.innerText.length;
+                function apagar() {
+                    if (index > 0) {
+                        textoElement.innerText = textoElement.innerText.slice(0, -1);
+                        index--;
+                        setTimeout(apagar, 50); // Ajuste o intervalo para a velocidade de apagamento
+                    } else {
+                        escreverNovoTexto();
+                    }
+                }
+                apagar();
+            }
+
+            function escreverNovoTexto() {
+                let index = 0;
+                textoElement.innerText = "";
+                function escrever() {
+                    if (index < textoNovo.length) {
+                        textoElement.innerText += textoNovo[index];
+                        index++;
+                        setTimeout(escrever, 50); // Ajuste o intervalo para a velocidade de escrita
+                    } else {
+                        cursor.style.display = 'none'; // Oculta o cursor ao terminar de escrever
+                    }
+                }
+                escrever();
+            }
+
+            setTimeout(apagarTexto, 3000); // Aguarda 3 segundos antes de começar a apagar
+        };
+    </script>
+</body>
+</html>

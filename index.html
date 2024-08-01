@@ -46,10 +46,11 @@
 
         .texto {
             width: 90%;
-            font-size: 6vw; /* Ajuste o tamanho da fonte para ser responsivo */
+            font-size: 5vw; /* Aumenta o tamanho da fonte para melhorar a legibilidade */
             white-space: pre-wrap;
             overflow: hidden;
             text-align: center;
+            line-height: 1.4; /* Aumenta o espaçamento entre linhas para melhor legibilidade */
             opacity: 1;
         }
 
@@ -65,6 +66,13 @@
             height: 1em;
             background-color: #0f0;
             animation: piscar 0.8s step-end infinite;
+        }
+
+        /* Estilo específico para dispositivos móveis */
+        @media (max-width: 600px) {
+            .texto {
+                font-size: 6vw; /* Aumenta o tamanho da fonte em telas menores */
+            }
         }
     </style>
 </head>
@@ -117,4 +125,3 @@
     </script>
 </body>
 </html>
-
